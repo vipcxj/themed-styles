@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig",
+  "compilerOptions": {
+    "jsx": "react"
+  },
+  "include": [
+    "./tests/**/*.ts",
+    "./tests/**/*.tsx"
+  ],
+}

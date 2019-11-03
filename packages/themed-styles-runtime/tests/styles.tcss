@@ -1,0 +1,18 @@
+div > span {
+    font-size: 24px;
+}
+
+div > button {
+    color: ${buttonColor};
+}
+
+.a {
+    color: red;
+}
+
+.a.b {
+    color: ${primaryColor};
+}
+
+
+

@@ -1,0 +1,26 @@
+{
+  "name": "themed-styles-runtime",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rm -rf dist *.tsbuildinfo & npx tsc -b tsconfig.build.json"
+  },
+  "dependencies": {
+    "document-ready": "^2.0.2"
+  },
+  "devDependencies": {
+    "@types/document-ready": "^2.0.0",
+    "@types/html-webpack-plugin": "^3.2.1",
+    "@types/puppeteer": "^1.20.2",
+    "@types/webpack-dev-server": "^3.4.0",
+    "@types/webpack-virtual-modules": "^0.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "puppeteer": "^2.0.0",
+    "themed-styles": "1.0.0",
+    "ts-loader": "^6.2.1",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "^3.7.1-rc",
+    "webpack-virtual-modules": "^0.2.0",
+    "webpack": "^4.41.2",
+    "webpack-dev-server": "^3.9.0"
+  }
+}

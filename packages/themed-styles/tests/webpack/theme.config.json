@@ -1,0 +1,6 @@
+{
+  "primaryColor": "black",
+  "secondaryColor": {
+    "defaultValue": "red"
+  }
+}
