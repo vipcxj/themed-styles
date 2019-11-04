@@ -2,6 +2,7 @@
   "name": "themed-styles-librarys",
   "private": true,
   "scripts": {
+    "bulid": "lerna run build",
     "lint": "lerna run lint",
     "postinstall": "lerna bootstrap"
   },

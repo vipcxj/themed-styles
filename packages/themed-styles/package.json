@@ -18,9 +18,10 @@
   ],
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rm -rf dist *.tsbuildinfo & npx tsc --declaration -p tsconfig.build.json",
+    "build": "rm -rf dist *.tsbuildinfo & npx tsc -b tsconfig.build.json",
     "clean": "git clean -fdX .",
     "lint": "tslint src/**/*.ts tests/**/*.ts",
+    "prepublish": "npm build",
     "test": "jest"
   },
   "dependencies": {

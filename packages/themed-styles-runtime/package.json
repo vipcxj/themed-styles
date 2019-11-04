@@ -3,7 +3,8 @@
   "version": "1.0.4-alpha.0",
   "scripts": {
     "build": "rm -rf dist *.tsbuildinfo & npx tsc -b tsconfig.build.json",
-    "lint": "tslint src/**/*.ts tests/**/*.ts"
+    "lint": "tslint src/**/*.ts tests/**/*.ts",
+    "prepublish": "npm build"
   },
   "dependencies": {
     "document-ready": "^2.0.2"
