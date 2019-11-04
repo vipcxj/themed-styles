@@ -2,6 +2,7 @@
   "name": "themed-styles-librarys",
   "private": true,
   "scripts": {
+    "lint": "lerna run lint",
     "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
@@ -13,7 +14,6 @@
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
-    "tslint-react": "^4.1.0",
-    "typescript": "^3.7.1-rc"
+    "tslint-react": "^4.1.0"
   }
 }
