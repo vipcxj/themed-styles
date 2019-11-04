@@ -7,7 +7,6 @@ coverage
 dist
 .DS_Store
 *.tsbuildinfo
-package-lock.json
 lerna-debug.log
 npm-debug.log
 yarn-error.log
