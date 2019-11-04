@@ -1,6 +1,6 @@
 {
   "name": "themed-styles",
-  "version": "1.0.3-alpha.0",
+  "version": "1.0.4-alpha.0",
   "description": "generate and update dynamic themed classes for the react component",
   "homepage": "https://vipcxj.github.io/react-themed-styles",
   "repository": {

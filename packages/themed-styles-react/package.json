@@ -1,6 +1,6 @@
 {
   "name": "themed-styles-react",
-  "version": "1.0.3-alpha.0",
+  "version": "1.0.4-alpha.0",
   "scripts": {
     "lint": "tslint src/**/*.{ts,tsx} tests/**/*.{ts.tsx}"
   },
@@ -17,8 +17,8 @@
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
     "react-test-renderer": "^16.11.0",
-    "themed-styles": "^1.0.3-alpha.0",
-    "themed-styles-runtime": "^1.0.3-alpha.0",
+    "themed-styles": "^1.0.4-alpha.0",
+    "themed-styles-runtime": "^1.0.4-alpha.0",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
