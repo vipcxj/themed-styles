@@ -141,7 +141,7 @@ function walkClass(node: Container, local: boolean, module: boolean, callback: (
 
 function checkVariable(variables: string[], theme: ThemeConfig) {
     for (const variable of variables) {
-        if (!(variable in theme)) {
+        if (!(variable in theme.struct)) {
             return variable;
         }
     }
@@ -265,7 +265,7 @@ function updateClassInfoes(infoes: ClassInfos, name: string, themed: boolean, va
 }
 
 export default postcss.plugin<Options>(PLUGIN_NAME, (opts = {}) => {
-    const { localsConvention = 'asIs', theme = {}, themeDefault = true } = opts;
+    const { localsConvention = 'asIs', theme = { struct: {} }, themeDefault = true } = opts;
      return (root, result) => {
          const { messages } = result;
          const sheetMsg = getThemedSheetMessage(messages);

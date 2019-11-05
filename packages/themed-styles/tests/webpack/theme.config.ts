@@ -1,3 +1,5 @@
 export default {
-    primaryColor: 'blue',
+    struct: {
+        primaryColor: 'blue',
+    },
 }

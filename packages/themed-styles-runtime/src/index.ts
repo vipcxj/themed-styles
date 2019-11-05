@@ -27,19 +27,24 @@ function decideInnerName(names: string[], name: string, orgName: string): string
 const PROP_DATA = decideInnerName(THEME_KEYS, 'data', 'data');
 
 interface NormThemeConfig {
-    [key: string]: ThemeProperty;
+    struct: {
+        [key: string]: ThemeProperty;
+    },
+    themes?: {
+        [name: string]: RuntimeTheme;
+    }
 }
 
 function normalizeThemeConfig(): NormThemeConfig {
-    const norm: NormThemeConfig = {};
+    const norm: NormThemeConfig = { struct: {} };
     for (const key of THEME_KEYS) {
-        const property = THEME_CONFIG[key];
+        const property = THEME_CONFIG.struct[key];
         if (typeof property === 'string') {
-            norm[key] = {
+            norm.struct[key] = {
                 defaultValue: property,
             };
         } else {
-            norm[key] = property;
+            norm.struct[key] = property;
         }
     }
     return norm;
@@ -50,7 +55,7 @@ const NORM_THEME_CONFIG = normalizeThemeConfig();
 function resolveDefaultTheme(): RuntimeTheme {
     const out: RuntimeTheme = {};
     for (const key of THEME_KEYS) {
-        out[key] = NORM_THEME_CONFIG[key].defaultValue;
+        out[key] = NORM_THEME_CONFIG.struct[key].defaultValue;
     }
     return out;
 }
@@ -375,3 +380,8 @@ function doWork(jobs: Job[]) {
 }
 
 createTheme('', DEFAULT_THEME);
+if (NORM_THEME_CONFIG.themes) {
+    for (const theme of Object.keys(NORM_THEME_CONFIG.themes)) {
+        createTheme(theme, NORM_THEME_CONFIG.themes[theme]);
+    }
+}

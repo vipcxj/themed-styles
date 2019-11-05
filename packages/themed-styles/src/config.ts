@@ -1,7 +1,5 @@
 import { JSONSchema7 as Schema } from 'json-schema';
-import path from 'path';
 import postcss from "postcss";
-import validateOptions from 'schema-utils';
 import { ModuleOptionsType } from "./webpack/modulize";
 
 export interface ThemeProperty {
@@ -9,11 +7,12 @@ export interface ThemeProperty {
 }
 
 export interface ThemeConfig {
-    [key: string]: string | ThemeProperty;
-}
-
-export type TaggedTheme = ThemeConfig & {
-    __path__?: string;
+    struct: {
+        [key: string]: string | ThemeProperty;
+    },
+    themes?: {
+        [name: string]: RuntimeTheme;
+    }
 }
 
 export interface RuntimeTheme {
@@ -50,70 +49,6 @@ export const schemaTheme: Schema = {
         property: cleanSchema(schemaProperty),
     },
 };
-
-function myRequire(file: string) {
-    require.resolve(file);
-    return require(file);
-}
-
-export function loadTheme(context: string, pluginName: string, file?: string | object) {
-    let obj;
-    let resolved: boolean = false;
-    const provided: boolean = !!file;
-    if (typeof file === 'string') {
-        try {
-            obj = myRequire(path.resolve(context, file));
-            resolved = true;
-            // tslint:disable-next-line:no-empty
-        } catch (e) {}
-    } else if (!file) {
-        file = path.resolve(context, 'theme.js');
-        try {
-            obj = myRequire(file);
-            resolved = true;
-            // tslint:disable-next-line:no-empty
-        } catch (e) {}
-        if (!resolved) {
-            file = path.join(context, 'theme.ts');
-            try {
-                obj = myRequire(file);
-                resolved = true;
-                // tslint:disable-next-line:no-empty
-            } catch (e) {}
-        }
-        if (!resolved) {
-            file = path.join(context, 'theme.json');
-            try {
-                obj = myRequire(file);
-                resolved = true;
-                // tslint:disable-next-line:no-empty
-            } catch (e) {}
-        }
-    } else {
-        obj = file;
-        resolved = true;
-    }
-    if (!resolved) {
-        throw new Error(`Unable to resolve the theme file ${ provided ? file : 'under context' + context }.`);
-    }
-    if (!obj) {
-        throw new Error(`Invalid theme file ${file}.`);
-    }
-    validateOptions(schemaTheme, obj, { name: pluginName });
-    const theme = obj as TaggedTheme;
-    theme.__path__  = typeof file === 'string' ? file : undefined;
-    return theme;
-}
-
-export function resolveDefaultTheme(theme: ThemeConfig): RuntimeTheme {
-    const keys = Object.keys(theme);
-    const out: RuntimeTheme = {};
-    for (const key of keys) {
-        const value = theme[key];
-        out[key] = typeof value === 'string' ? value : value.defaultValue;
-    }
-    return out;
-}
 
 export interface LoaderOptions {
     theme: ThemeConfig;

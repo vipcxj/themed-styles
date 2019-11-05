@@ -1,6 +1,8 @@
 {
-  "primaryColor": "black",
-  "secondaryColor": {
-    "defaultValue": "red"
+  "struct": {
+    "primaryColor": "black",
+    "secondaryColor": {
+      "defaultValue": "red"
+    }
   }
 }

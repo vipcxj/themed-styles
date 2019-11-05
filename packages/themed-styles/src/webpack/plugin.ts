@@ -14,11 +14,8 @@ function myRequire(p: string) {
     if (!m) {
         return m;
     }
-    if (m.default) {
-        return m.default;
-    } else {
-        return m;
-    }
+    const wrapped = (m && m.__esModule) ? m : { default: m };
+    return wrapped.default;
 }
 
 function prepareTheme(compiler: Compiler, context: string, theme?: string | ThemeConfig): [ThemeConfig] | [ThemeConfig, string, () => void] {
