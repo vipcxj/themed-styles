@@ -59,9 +59,11 @@ export default (entry: string | VirtualFile, options: Options = defaultOptions) 
         }
     }
     const virtualPlugins:VirtualModulePlugin[] = [];
+    virtualFiles['node_modules/themed-styles-runtime.js'] = `exports = require(${require.resolve('../../../themed-styles-runtime/src')});`;
     if (Object.keys(virtualFiles).length > 0) {
         virtualPlugins.push(new VirtualModulePlugin(virtualFiles));
     }
+    const TsconfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
     const compiler = webpack({
         context: __dirname,
         entry: entryPath,
@@ -73,13 +75,28 @@ export default (entry: string | VirtualFile, options: Options = defaultOptions) 
         },
         target: 'node',
         module: {
-            rules: loaderOptions ? [{
-                test: /\.tcss/,
-                use: {
-                    loader: Plugin.loader,
-                    options: loaderOptions,
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    use: {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true,
+                        }
+                    }
                 },
-            }] : [],
+                ...(loaderOptions ? [{
+                    test: /\.tcss/,
+                    use: {
+                        loader: Plugin.loader,
+                        options: loaderOptions,
+                    },
+                }] : [])
+            ],
+        },
+        resolve: {
+            extensions: ['.ts', '.js'],
+            plugins: [new TsconfigPathsWebpackPlugin({ configFile: path.resolve(__dirname, '../../tsconfig.json')})],
         },
         plugins: pluginOptions ? [
             new Plugin(pluginOptions),

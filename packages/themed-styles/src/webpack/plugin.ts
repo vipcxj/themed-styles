@@ -52,7 +52,7 @@ function prepareTheme(compiler: Compiler, context: string, theme?: string | Them
         themeObj = theme;
     }
     if (themeObj) {
-        validateOptions(schemaTheme, themeObj, { name: 'theme configure' });
+        validateOptions(schemaTheme, themeObj, { name: PLUGIN_NAME });
         const virtualModules = new VirtualModulesPlugin({
             [THEME_VIRTUAL_PATH]: JSON.stringify(themeObj),
         });

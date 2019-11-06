@@ -1,4 +1,3 @@
-import path from 'path';
 import compiler from './compiler';
 import tsTheme from './theme.config';
 import defaultTheme from './theme.config.json';
@@ -22,13 +21,13 @@ describe('plugin test', () => {
             path: './entry.js',
             content: `const styles = require('a.tcss').default; export default styles;`,
         }, {
-            plugin: { theme: tsTheme, modules: false },
+            plugin: { theme: tsTheme },
             loader: true,
             files: [
                 { path: 'node_modules/a.tcss', content: '.a { color: ${primaryColor}; }' }
             ]
         });
         expect(stats.hasErrors()).toEqual(false);
-        expect(output).toEqual({ a: 'a' });
+        expect(output.useTheme()).toEqual(['lc_defaultModuleClass_2__', { a: 'lc_a_2__' }]);
     });
 });

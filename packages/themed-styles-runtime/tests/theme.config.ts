@@ -1,5 +1,7 @@
 export default {
-    primaryColor: 'blue',
-    secondaryColor: 'red',
-    buttonColor: 'chocolate',
+    struct: {
+        primaryColor: 'blue',
+        secondaryColor: 'red',
+        buttonColor: 'chocolate',
+    },
 }

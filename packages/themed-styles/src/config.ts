@@ -34,7 +34,7 @@ export const schemaProperty: Schema = {
     required: ['defaultValue'],
 };
 
-export const schemaTheme: Schema = {
+export const schemaStruct: Schema = {
     type: "object",
     patternProperties: {
         "^[a-zA-Z_][0-9a-zA-Z_]*$": {
@@ -46,6 +46,20 @@ export const schemaTheme: Schema = {
     },
     additionalProperties: false,
     definitions: {
+        property: cleanSchema(schemaProperty),
+    },
+};
+
+export const schemaTheme: Schema = {
+    type: "object",
+    properties: {
+        struct: {
+            $ref: '#/definitions/struct',
+        },
+    },
+    additionalProperties: false,
+    definitions: {
+        struct: cleanSchema(schemaStruct),
         property: cleanSchema(schemaProperty),
     },
 };

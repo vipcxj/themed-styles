@@ -12,14 +12,6 @@ export function each(targetFilter: TargetFilter, toMatchFile: MatchedFile, callb
     return baseEach(__dirname, targetFilter, toMatchFile, callback);
 }
 
-export function toSheet(input: string) {
-    const [parts, vars] = compileTemplate(input);
-    return {
-        parts,
-        vars: vars.filter(v => v.startsWith(':theme:')).map(v => v.substring(7)),
-    };
-}
-
 export async function run(input: ParserInput | Result | LazyResult | Root, opts: PluginOptions) {
     return postcss(plugin(opts)).process(input, { from: undefined, to: undefined, parser }).then(({ css, messages }) => ({
         css,

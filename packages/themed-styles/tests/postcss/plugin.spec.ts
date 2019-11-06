@@ -1,13 +1,15 @@
-import { decideModuleClass, decideSuffix, Options as PluginOptions } from "../../src/postcss/plugin";
+import { decideModuleClass, Options as PluginOptions } from "../../src/postcss/plugin";
 import { textPart, variablePart } from '../../src/utils';
 import { run } from './utils';
 
 describe('base', () => {
     const opts: PluginOptions = {
         theme: {
-            primaryColor: 'blue',
-            secondaryColor: 'red',
-            'backgroundColor': 'white',
+            struct: {
+                primaryColor: 'blue',
+                secondaryColor: 'red',
+                'backgroundColor': 'white',
+            },
         },
     };
     it('should work with class themed rule', async () => {
@@ -25,7 +27,7 @@ describe('base', () => {
                     vars: ['primaryColor'],
                 }]);
                 expect(parts).toEqual([variablePart(':rule:0')]);
-                expect(classInfoes).toEqual([{ name: 'a', varName: 'a', themed: true }]);
+                expect(classInfoes).toEqual({ a: { varName: 'a', themed: true }});
             })
             .catch(err => {
                 fail(err);
@@ -49,7 +51,7 @@ describe('base', () => {
                     vars: ['primaryColor'],
                 }]);
                 expect(parts).toEqual([variablePart(':rule:0')]);
-                expect(classInfoes).toEqual([]);
+                expect(classInfoes).toEqual({});
             })
             .catch(err => {
                 fail(err);
@@ -72,7 +74,7 @@ describe('base', () => {
                     vars: ['primaryColor', 'backgroundColor'],
                 }]);
                 expect(parts).toEqual([variablePart(':rule:0')]);
-                expect(classInfoes).toEqual([{ name: 'a', varName: 'a', themed: true }]);
+                expect(classInfoes).toEqual({ a: { varName: 'a', themed: true } });
             })
             .catch(err => {
                 fail(err);
@@ -95,18 +97,16 @@ describe('base', () => {
                     vars: ['primaryColor'],
                 }]);
                 expect(parts).toEqual([variablePart(':rule:0')]);
-                expect(classInfoes).toEqual([
-                    {
-                        name: 'a',
+                expect(classInfoes).toEqual({
+                    a: {
                         varName: 'a',
                         themed: true,
                     },
-                    {
-                        name: 'b',
+                    b: {
                         varName: 'b',
                         themed: true,
-                    }
-                ]);
+                    },
+                });
             })
             .catch(err => {
                 fail(err);
@@ -130,7 +130,7 @@ describe('base', () => {
                     vars: ['primaryColor'],
                 }]);
                 expect(parts).toEqual([variablePart(':rule:0')]);
-                expect(classInfoes).toEqual([]);
+                expect(classInfoes).toEqual({});
             })
             .catch(err => {
                 fail(err);
@@ -141,7 +141,7 @@ describe('base', () => {
             .then(({ rules, sheet: { parts, classInfoes} }) => {
                 expect(rules).toEqual([]);
                 expect(parts).toEqual([textPart('div { color: red; }')]);
-                expect(classInfoes).toEqual([]);
+                expect(classInfoes).toEqual({});
             })
             .catch(err => {
                 fail(err);
@@ -182,7 +182,7 @@ describe('base', () => {
                     textPart('\n '),
                     variablePart(':rule:1'),
                 ]);
-                expect(classInfoes).toEqual([{ name: 'a', varName: 'a', themed: true}]);
+                expect(classInfoes).toEqual({ a: { varName: 'a', themed: true} });
             })
             .catch(err => {
                 fail(err);
@@ -197,11 +197,7 @@ describe('base', () => {
                     variablePart(':class:a'),
                     textPart(' { color: red; }'),
                 ]);
-                expect(classInfoes).toEqual([{
-                    name: 'a',
-                    varName: 'a',
-                    themed: false,
-                }]);
+                expect(classInfoes).toEqual({ a: { varName: 'a', themed: false } });
             })
             .catch(err => {
                 fail(err);

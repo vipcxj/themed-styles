@@ -3,7 +3,7 @@ import { getOptions } from 'loader-utils';
 import postcss from 'postcss';
 import validateOptions from 'schema-utils';
 import { loader } from 'webpack';
-import { cleanSchema, LoaderOptions as Options, schemaProperty, schemaTheme } from '../config';
+import { cleanSchema, LoaderOptions as Options, schemaProperty, schemaStruct, schemaTheme } from '../config';
 import parser from '../postcss/parse';
 import plugin, { getThemedRulesMessage, getThemedSheetMessage, Options as PluginOption } from '../postcss/plugin';
 import { getLocalIdent, normOptions as normModuleOptions } from './modulize';
@@ -19,6 +19,7 @@ const schema: Schema = {
     },
     definitions: {
         property: cleanSchema(schemaProperty),
+        struct: cleanSchema(schemaStruct),
         theme: cleanSchema(schemaTheme),
     },
 };

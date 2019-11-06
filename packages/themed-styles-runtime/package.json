@@ -4,10 +4,14 @@
   "scripts": {
     "build": "rm -rf dist *.tsbuildinfo & npx tsc -b tsconfig.build.json",
     "lint": "tslint src/**/*.ts tests/**/*.ts",
-    "prepublish": "npm build"
+    "prepublish": "npm run build",
+    "test": "jest"
   },
   "dependencies": {
     "document-ready": "^2.0.2"
+  },
+  "peerDependencies": {
+    "themed-styles": "1.0.5-alpha.0"
   },
   "devDependencies": {
     "@types/document-ready": "^2.0.0",

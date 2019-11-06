@@ -21,7 +21,7 @@
     "build": "rm -rf dist *.tsbuildinfo & npx tsc -b tsconfig.build.json",
     "clean": "git clean -fdX .",
     "lint": "tslint src/**/*.ts tests/**/*.ts",
-    "prepublish": "npm build",
+    "prepublish": "npm run build",
     "test": "jest"
   },
   "dependencies": {
@@ -36,7 +36,7 @@
   },
   "peerDependencies": {
     "postcss": "^7.0.0",
-    "themed-styles-runtime": "1.0.0",
+    "themed-styles-runtime": "1.0.5-alpha.0",
     "webpack": "^4.0.0"
   },
   "devDependencies": {
@@ -52,11 +52,14 @@
     "postcss": "^7.0.21",
     "postcss-parser-tests": "~6.3.1",
     "ts-jest": "^24.1.0",
+    "ts-loader": "^6.2.1",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.1.0",
-    "typescript": "^3.7.1-rc"
+    "typescript": "^3.7.1-rc",
+    "webpack": "^4.41.2"
   },
   "keywords": [
     "theme",

@@ -15,7 +15,7 @@ try {
 if (!THEME_CONFIG) {
     throw new Error('Unable to find the theme config, perhaps you do\'t use this library with the \'themed-styles\' webpack plugin.');
 }
-const THEME_KEYS = Object.keys(THEME_CONFIG);
+const THEME_KEYS = Object.keys(THEME_CONFIG.struct);
 
 function decideInnerName(names: string[], name: string, orgName: string): string {
     if (names.indexOf(name) < 0) {
@@ -206,23 +206,25 @@ export class Styles {
             }
             return css;
         });
-        if (!this.node) {
+        if (!this.node && typeof document !== 'undefined') {
             this.node = document.createElement('style');
             this.node.id = this.id;
             this.node.setAttribute('type', 'text/css');
             document.head.appendChild(this.node);
         }
-        this.node.innerHTML = evalTemplate(this.sheet.parts, varName => {
-            if (varName.startsWith(':class:')) {
-                const name = varName.substring(7).trim();
-                return getRealClassName(name, this.id, this.sheet.suffix, '');
-            } else if (varName.startsWith(':rule:')) {
-                const idx = Number.parseInt(varName.substring(6).trim(), 10);
-                return rules[idx];
-            } else {
-                return `\${${varName}}`;
-            }
-        });
+        if (this.node) {
+            this.node.innerHTML = evalTemplate(this.sheet.parts, varName => {
+                if (varName.startsWith(':class:')) {
+                    const name = varName.substring(7).trim();
+                    return getRealClassName(name, this.id, this.sheet.suffix, '');
+                } else if (varName.startsWith(':rule:')) {
+                    const idx = Number.parseInt(varName.substring(6).trim(), 10);
+                    return rules[idx];
+                } else {
+                    return `\${${varName}}`;
+                }
+            });
+        }
     }
     private prepareSheet() {
         const { id, sheet } = this;
@@ -337,10 +339,12 @@ function addJob(job: Job) {
 }
 
 let DOM_READY: boolean = false;
-ready(() => {
-    DOM_READY = true;
-    doWork(EARLY_JOBS);
-});
+if (typeof window !== 'undefined') {
+    ready(() => {
+        DOM_READY = true;
+        doWork(EARLY_JOBS);
+    });
+}
 
 function processJobs(jobs: Job[]): string[]  {
     const modules: string[] = [];
