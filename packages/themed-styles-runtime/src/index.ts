@@ -145,15 +145,24 @@ export class Styles {
         }
         return undefined;
     }
+    public static removeStyles(id: string): void {
+        this.STYLES_LIST = this.STYLES_LIST.filter(info => info.id !== id);
+    }
     public static registerStyles(id: string, rules: ThemedRule[], sheet: ThemedSheet) {
-        let styles = this.getStyles(id);
-        if (styles) {
-            throw new Error(`The styles ${id} exists.`);
-        }
-        styles = new Styles(id, rules, sheet);
+        const old = this.getStyles(id);
+        const styles = new Styles(id, rules, sheet);
+        this.removeStyles(id);
         this.STYLES_LIST.push(styles);
-        styles.useTheme();
-        return styles;
+        try {
+            styles.useTheme();
+            return styles;
+        } catch (e) {
+            if (old) {
+                this.removeStyles(id);
+                this.STYLES_LIST.push(old);
+            }
+            throw e;
+        }
     }
     public id: string;
     public rules: ThemedRule[];
