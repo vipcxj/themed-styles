@@ -1,6 +1,6 @@
 {
   "name": "themed-styles-runtime",
-  "version": "1.0.7-alpha.0",
+  "version": "1.0.7-alpha.1",
   "scripts": {
     "build": "rm -rf dist *.tsbuildinfo & npx tsc -b tsconfig.build.json",
     "lint": "tslint src/**/*.ts tests/**/*.ts",
@@ -22,7 +22,7 @@
     "html-webpack-plugin": "^3.2.0",
     "jest": "^24.9.0",
     "puppeteer": "^2.0.0",
-    "themed-styles": "^1.0.7-alpha.0",
+    "themed-styles": "^1.0.7-alpha.1",
     "ts-jest": "^24.1.0",
     "ts-loader": "^6.2.1",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
