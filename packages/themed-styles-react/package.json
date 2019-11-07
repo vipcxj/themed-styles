@@ -1,6 +1,6 @@
 {
   "name": "themed-styles-react",
-  "version": "1.0.7-alpha.2",
+  "version": "1.0.7-alpha.3",
   "main": "dist/index.js",
   "files": [
     "dist"
@@ -26,7 +26,7 @@
     "react-dom": "^16.11.0",
     "react-test-renderer": "^16.11.0",
     "themed-styles": "^1.0.7-alpha.1",
-    "themed-styles-runtime": "^1.0.7-alpha.2",
+    "themed-styles-runtime": "^1.0.7-alpha.3",
     "ts-jest": "^24.1.0",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
