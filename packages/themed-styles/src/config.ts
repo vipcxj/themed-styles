@@ -51,15 +51,32 @@ export const schemaStruct: Schema = {
 };
 
 export const schemaTheme: Schema = {
-    type: "object",
-    properties: {
-        struct: {
-            $ref: '#/definitions/struct',
+    type: 'object',
+    patternProperties: {
+        '^[a-zA-Z_][0-9a-zA-Z_]*$': {
+            type: 'string',
         },
     },
     additionalProperties: false,
     definitions: {
+        property: cleanSchema(schemaProperty),
+    },
+};
+
+export const schemaConfig: Schema = {
+    type: 'object',
+    properties: {
+        struct: {
+            $ref: '#/definitions/struct',
+        },
+        themes: {
+            $ref: '#/definitions/theme'
+        }
+    },
+    additionalProperties: false,
+    definitions: {
         struct: cleanSchema(schemaStruct),
+        theme: cleanSchema(schemaTheme),
         property: cleanSchema(schemaProperty),
     },
 };

@@ -1,6 +1,6 @@
 import ready from 'document-ready';
-import {RuntimeTheme, ThemeConfig, ThemedRule, ThemedSheet, ThemeProperty} from 'themed-styles';
-import {ITemplatePart, TemplatePartType} from 'themed-styles/src/utils';
+import { RuntimeTheme, ThemeConfig, ThemedRule, ThemedSheet, ThemeProperty } from 'themed-styles';
+import { ITemplatePart, TemplatePartType } from 'themed-styles/src/utils';
 
 declare let global: any;
 global = global || window || {};
@@ -319,7 +319,10 @@ const THEMES: ThemeState[] = [];
 const JOBS: Job[] = [];
 const EARLY_JOBS: Job[] = [];
 const nextFrame = (global.requestAnimationFrame as typeof requestAnimationFrame) || setTimeout;
-function getThemeState(id: string = ''): ThemeState | undefined {
+export function getThemes(): string[] {
+    return THEMES.map(s => s.id);
+}
+export function getThemeState(id: string = ''): ThemeState | undefined {
     for (const theme of THEMES) {
         if (theme.id === id) {
             return theme;
@@ -389,3 +392,5 @@ if (NORM_THEME_CONFIG.themes) {
         createTheme(theme, NORM_THEME_CONFIG.themes[theme]);
     }
 }
+
+export const config = NORM_THEME_CONFIG;

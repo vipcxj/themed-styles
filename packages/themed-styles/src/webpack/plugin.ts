@@ -3,7 +3,7 @@ import path from "path";
 import validateOptions from 'schema-utils';
 import { Compiler, loader as Loader } from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
-import { LoaderOptions, PluginOptions as Options, schemaTheme, ThemeConfig } from '../config';
+import { LoaderOptions, PluginOptions as Options, schemaConfig, ThemeConfig } from '../config';
 
 const PLUGIN_NAME = 'themed-styles-plugin';
 const THEME_MODULE = 'themed-styles-theme-on-the-fly.json';
@@ -52,7 +52,7 @@ function prepareTheme(compiler: Compiler, context: string, theme?: string | Them
         themeObj = theme;
     }
     if (themeObj) {
-        validateOptions(schemaTheme, themeObj, { name: PLUGIN_NAME });
+        validateOptions(schemaConfig, themeObj, { name: PLUGIN_NAME });
         const virtualModules = new VirtualModulesPlugin({
             [THEME_VIRTUAL_PATH]: JSON.stringify(themeObj),
         });

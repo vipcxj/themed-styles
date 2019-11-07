@@ -1,4 +1,4 @@
-import { createTheme, Styles } from '../src';
+import { createTheme, getThemes, Styles } from '../src';
 // tslint:disable-next-line:no-var-requires
 const styles = require('./styles.tcss').default as Styles;
 
@@ -13,8 +13,6 @@ createTheme('b', {
 });
 
 const [defaultClass, classes] = styles.useTheme();
-const [defaultClassA, classesA] = styles.useTheme('a');
-const [defaultClassB, classesB] = styles.useTheme('b');
 let currentClass = defaultClass;
 let currentClasses = classes;
 
@@ -41,27 +39,21 @@ btnReset.addEventListener('click', () => {
     currentClasses = classes;
     setStyle();
 });
-const btnA = document.createElement('button');
-btnA.id = 'btnA';
-btnA.innerText = 'a';
-btnA.addEventListener('click', () => {
-    currentClass = defaultClassA;
-    currentClasses = classesA;
-    setStyle();
-});
-const btnB = document.createElement('button');
-btnB.id = 'btnB';
-btnB.innerText = 'b';
-btnB.addEventListener('click', () => {
-    currentClass = defaultClassB;
-    currentClasses = classesB;
-    setStyle();
-});
 container.appendChild(a);
 container.appendChild(ab);
 container.appendChild(btnReset);
-container.appendChild(btnA);
-container.appendChild(btnB);
+for (const theme of getThemes()) {
+    if (theme) {
+        const btn = document.createElement('button');
+        btn.id = `btn${theme}`;
+        btn.innerText = theme;
+        btn.addEventListener('click', () => {
+            [currentClass, currentClasses] = styles.useTheme(theme);
+            setStyle();
+        });
+        container.appendChild(btn);
+    }
+}
 function setStyle() {
     root.setAttribute('class', currentClass);
     a.setAttribute('class', currentClasses.a);
