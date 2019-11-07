@@ -70,10 +70,17 @@ export const schemaConfig: Schema = {
             $ref: '#/definitions/struct',
         },
         themes: {
-            $ref: '#/definitions/theme'
+            type: 'object',
+            patternProperties: {
+                '^.*$': {
+                    $ref: '#/definitions/theme',
+                },
+            },
+            additionalProperties: false,
         }
     },
     additionalProperties: false,
+    required: ['struct'],
     definitions: {
         struct: cleanSchema(schemaStruct),
         theme: cleanSchema(schemaTheme),
