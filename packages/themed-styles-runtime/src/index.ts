@@ -36,7 +36,7 @@ interface NormThemeConfig {
 }
 
 function normalizeThemeConfig(): NormThemeConfig {
-    const norm: NormThemeConfig = { struct: {} };
+    const norm: NormThemeConfig = { struct: {}, themes: THEME_CONFIG.themes };
     for (const key of THEME_KEYS) {
         const property = THEME_CONFIG.struct[key];
         if (typeof property === 'string') {
