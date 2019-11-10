@@ -10,6 +10,7 @@ const THEME_MODULE = 'themed-styles-theme-on-the-fly.json';
 const THEME_VIRTUAL_PATH = path.resolve(`/node_modules/${THEME_MODULE}`);
 
 function myRequire(p: string) {
+    delete require.cache[require.resolve(p)];
     const m = require(p);
     if (!m) {
         return m;
