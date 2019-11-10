@@ -35,7 +35,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-react": "^4.1.0",
-    "typescript": "^3.7.1-rc",
+    "typescript": "^3.7.2",
     "webpack": "^4.41.2",
     "webpack-dev-server": "^3.9.0",
     "webpack-virtual-modules": "^0.2.0"

@@ -59,7 +59,7 @@ function prepareTheme(compiler: Compiler, context: string, theme?: string | Them
         virtualModules.apply(compiler);
         if (themePath) {
             const listener = () => {
-                virtualModules.writeModule(THEME_VIRTUAL_PATH, JSON.stringify(require(themePath)));
+                virtualModules.writeModule(THEME_VIRTUAL_PATH, JSON.stringify(myRequire(themePath)));
             };
             if (fs.watch) {
                 const watcher = fs.watch(themePath, listener);
@@ -91,11 +91,11 @@ class ThemedStylesPlugin {
     }
     public apply(compiler: Compiler): void {
         const { context, theme } = this.options;
-        const [themeObj,, cleanWatcher] = prepareTheme(compiler, context || compiler.context, theme);
-        if (cleanWatcher) {
-            compiler.hooks.done.tap(PLUGIN_NAME, cleanWatcher);
-            compiler.hooks.failed.tap(PLUGIN_NAME, cleanWatcher);
-        }
+        const [themeObj/*,, cleanWatcher*/] = prepareTheme(compiler, context || compiler.context, theme);
+        // if (cleanWatcher) {
+        //     compiler.hooks.done.tap(PLUGIN_NAME, cleanWatcher);
+        //     compiler.hooks.failed.tap(PLUGIN_NAME, cleanWatcher);
+        // }
         const { modules, plugins } = this.options;
         const loaderOpts: LoaderOptions = {
             theme: themeObj,
