@@ -216,10 +216,15 @@ export class Styles {
             return css;
         });
         if (!this.node && typeof document !== 'undefined') {
-            this.node = document.createElement('style');
-            this.node.id = this.id;
-            this.node.setAttribute('type', 'text/css');
-            document.head.appendChild(this.node);
+            const node = document.getElementById(`_themed_styles_${this.id}`);
+            if (node && node.tagName.toUpperCase() === 'STYLE' && node.getAttribute('type') === 'text/css' && node.parentNode === document.head) {
+                this.node = node as HTMLStyleElement;
+            } else {
+                this.node = document.createElement('style');
+                this.node.id = `_themed_styles_${this.id}`;
+                this.node.setAttribute('type', 'text/css');
+                document.head.appendChild(this.node);
+            }
         }
         if (this.node) {
             this.node.innerHTML = evalTemplate(this.sheet.parts, varName => {
