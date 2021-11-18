@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from "path";
 import validateOptions from 'schema-utils';
-import { Compiler, loader as Loader } from 'webpack';
+import type * as webpack from 'webpack';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 import { LoaderOptions, PluginOptions as Options, schemaConfig, ThemeConfig } from '../config';
 
@@ -19,7 +19,7 @@ function myRequire(p: string) {
     return wrapped.default;
 }
 
-function prepareTheme(compiler: Compiler, context: string, theme?: string | ThemeConfig): [ThemeConfig] | [ThemeConfig, string, () => void] {
+function prepareTheme(compiler: webpack.Compiler, context: string, theme?: string | ThemeConfig): [ThemeConfig] | [ThemeConfig, string, () => void] {
     let themeObj: ThemeConfig;
     let themePath: string;
     let cleaner: () => void;
@@ -90,7 +90,7 @@ class ThemedStylesPlugin {
     constructor(options: Options = {}) {
         this.options = options;
     }
-    public apply(compiler: Compiler): void {
+    public apply(compiler: webpack.Compiler): void {
         const { context, theme } = this.options;
         const [themeObj/*,, cleanWatcher*/] = prepareTheme(compiler, context || compiler.context, theme);
         // if (cleanWatcher) {
@@ -131,7 +131,7 @@ class ThemedStylesPlugin {
         //     callback();
         // });
         compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
-            compilation.hooks.normalModuleLoader.tap(PLUGIN_NAME, (loaderContext: Loader.LoaderContext, module: any) => {
+            compilation.hooks.normalModuleLoader.tap(PLUGIN_NAME, (loaderContext: webpack.LoaderContext<LoaderOptions>, module: any) => {
                 ThemedStylesPlugin.hackThemeLoader(module, loaderOpts);
             });
         })

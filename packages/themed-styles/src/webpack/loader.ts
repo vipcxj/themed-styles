@@ -1,8 +1,7 @@
 import { JSONSchema7 as Schema } from 'json-schema';
-import { getOptions } from 'loader-utils';
 import postcss from 'postcss';
 import validateOptions from 'schema-utils';
-import { loader } from 'webpack';
+import type * as webpack from 'webpack';
 import { cleanSchema, LoaderOptions as Options, schemaConfig, schemaProperty, schemaStruct, schemaTheme } from '../config';
 import parser from '../postcss/parse';
 import plugin, { getThemedRulesMessage, getThemedSheetMessage, Options as PluginOption } from '../postcss/plugin';
@@ -25,9 +24,9 @@ const schema: Schema = {
     },
 };
 
-const loader: loader.Loader = function (css, source) {
+const loader: webpack.LoaderDefinition<Options> = function (css, source) {
     const callback = this.async();
-    const options: Options = getOptions(this) as Options;
+    const options: Options = this.getOptions();
     validateOptions(schema, options, { name: LOADER_NAME });
     const { modules, theme, themePath, plugins = {} as Options['plugins'] } = options;
     if (themePath) {

@@ -58,7 +58,7 @@ export function startTestServer(context:string, files: File[], pluginOptions: Pl
             plugins: [new TsconfigPathsWebpackPlugin({ configFile: path.resolve(__dirname, '../tsconfig.json')})],
         },
         plugins: [
-            new WebpackPlugin(pluginOptions) as unknown as webpack.Plugin,
+            new WebpackPlugin(pluginOptions),
             new VirtualModulePlugin(virtualFiles),
             new HtmlWebpackPlugin(),
         ],

@@ -1,12 +1,13 @@
 import cssesc from 'cssesc';
-import loaderUtils from 'loader-utils';
 import normalizePath from 'normalize-path';
 import path from 'path';
 // import extractImports from 'postcss-modules-extract-imports';
 // import localByDefault from 'postcss-modules-local-by-default';
 // import modulesScope from 'postcss-modules-scope';
 // import modulesValues from 'postcss-modules-values';
-import webpack from 'webpack';
+import type * as webpack from 'webpack';
+import type { LoaderOptions } from '../config';
+import loaderUtils from './loader-utils';
 
 export type ModuleMode = 'local' | 'global';
 
@@ -19,7 +20,7 @@ export interface ModuleOptions {
     hashPrefix?: string;
     regExp?: string | RegExp;
     localsConvention?: LocalsConvention;
-    getLocalIdent?: (loaderContext: webpack.loader.LoaderContext, name: string, options?: ModuleOptions) => string;
+    getLocalIdent?: (loaderContext: webpack.LoaderContext<LoaderOptions>, name: string, options?: ModuleOptions) => string;
 }
 
 interface NormalModuleOptions extends ModuleOptions {
@@ -76,7 +77,7 @@ const filenameReservedRegex = /[<>:"/\\|?*\x00-\x1F]/g;
 const reControlChars = /[\u0000-\u001f\u0080-\u009f]/g;
 const reRelativePath = /^\.+/;
 
-export function getLocalIdent(loaderContext: webpack.loader.LoaderContext, name: string, options: NormalModuleOptions) {
+export function getLocalIdent(loaderContext: webpack.LoaderContext<LoaderOptions>, name: string, options: NormalModuleOptions) {
     if (!options.context) {
         options.context = loaderContext.rootContext;
     }
