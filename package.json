@@ -4,16 +4,11 @@
   "scripts": {
     "bulid": "lerna run build",
     "lint": "lerna run lint",
-    "postinstall": "lerna bootstrap",
-    "rm_node_modules": "rimraf node_modules"
+    "bootstrap": "lerna bootstrap"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.2",
-    "lerna": "^3.22.1",
-    "rimraf": "^3.0.2",
-    "tslint": "^5.20.0",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-eslint-rules": "^5.4.0",
-    "tslint-react": "^4.1.0"
+    "@types/jest": "^27.0.3",
+    "lerna": "^4.0.0",
+    "rimraf": "^3.0.2"
   }
 }

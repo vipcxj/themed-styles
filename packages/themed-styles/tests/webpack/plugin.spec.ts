@@ -15,6 +15,7 @@ describe('plugin test', () => {
         });
         expect(stats.hasErrors()).toEqual(false);
         expect(output).toEqual(defaultTheme);
+        return;
     });
     it('should use input theme object', async () => {
         const { stats, output } = await compiler({
@@ -28,6 +29,7 @@ describe('plugin test', () => {
             ]
         });
         expect(stats.hasErrors()).toEqual(false);
-        expect(output.useTheme()).toEqual(['lc_defaultModuleClass_2__', { a: 'lc_a_2__' }]);
+        expect(output.useTheme()).toEqual(['lc_defaultModuleClass_592__', { a: 'lc_a_592__' }]);
+        return;
     });
 });

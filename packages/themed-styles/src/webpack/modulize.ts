@@ -7,7 +7,7 @@ import path from 'path';
 // import modulesValues from 'postcss-modules-values';
 import type * as webpack from 'webpack';
 import type { LoaderOptions } from '../config';
-import loaderUtils from './loader-utils';
+import loaderUtils from 'loader-utils';
 
 export type ModuleMode = 'local' | 'global';
 

@@ -112,6 +112,7 @@ export default (entry: string | VirtualFile, options: Options = defaultOptions) 
                 return;
             }
             if (stats.hasErrors()) {
+                console.log(stats);
                 reject(new Error(stats.toJson().errors.join('\n')));
                 return;
             }
